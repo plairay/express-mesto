@@ -1,23 +1,15 @@
 {
-  "name": "mesto-react",
+  "name": "express-mesto",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.9"
   },
   "scripts": {
     "lint": "npx eslint",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "eslintConfig": {
     "extends": [
@@ -25,6 +17,7 @@
       "react-app/jest"
     ]
   },
+  "main": "app.js",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -40,6 +33,7 @@
   "devDependencies": {
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.2"
+    "eslint-plugin-import": "^2.23.2",
+    "nodemon": "^2.0.7"
   }
 }
