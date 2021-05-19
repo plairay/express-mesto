@@ -64,7 +64,7 @@ exports.updateProfile = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' && 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(400).send({ message: 'Переданы некорректные данные' });
       } else {
         res.status(500).send({ message: 'Произошла ошибка сервера' });
@@ -92,7 +92,7 @@ exports.updateAvatar = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'CastError' && 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
         res.status(400).send({ message: 'Переданы некорректные данные' });
       } else {
         res.status(500).send({ message: 'Произошла ошибка сервера' });
