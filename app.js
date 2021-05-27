@@ -17,9 +17,8 @@ const NotFoundError = require('./errors/404-not-found-error');
 
 dotenv.config();
 app.use(cors({
-  origin: true,
+  origin: 'https://plairayfront.nomoredomains.icu',
   credentials: true,
-  exposedHeaders: '*',
 }));
 app.use(express.json());
 app.use(cookieParser());
