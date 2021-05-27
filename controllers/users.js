@@ -8,7 +8,8 @@ const User = require('../models/user');
 
 const SALT_ROUNDS = 10;
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
-const JWT_SECRET_KEY = 'extremly_secret_key';
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 exports.getUsers = (req, res, next) => {
   User.find({})
@@ -151,9 +152,7 @@ exports.login = (req, res, next) => {
             throw new UnauthorizedError('Неправильные почта или пароль');
           }
 
-          const token = jwt.sign({ _id: userIsExist._id }, JWT_SECRET_KEY, {
-            expiresIn: '7d',
-          });
+          const token = jwt.sign({ _id: userIsExist._id }, `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`, { expiresIn: '7d' });
           res
             .cookie('userToken', token, {
               maxAge: '3600000',
