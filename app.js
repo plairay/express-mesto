@@ -15,7 +15,8 @@ const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/404-not-found-error');
 
 app.use(cors({
-  origin: 'https://plairayfront.nomoredomains.icu',
+  origin: true,
+  exposedHeaders: '*',
   credentials: true,
 }));
 app.use(express.json());
