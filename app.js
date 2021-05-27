@@ -1,7 +1,6 @@
 const express = require('express');
 
 const { PORT = 3000 } = process.env;
-const dotenv = require('dotenv');
 
 const app = express();
 const mongoose = require('mongoose');
@@ -15,7 +14,6 @@ const { login, createUser } = require('./controllers/users');
 const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/404-not-found-error');
 
-dotenv.config();
 app.use(cors({
   origin: 'https://plairayfront.nomoredomains.icu',
   credentials: true,
