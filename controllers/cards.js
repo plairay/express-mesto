@@ -63,6 +63,7 @@ exports.likeCard = (req, res, next) => {
     { new: true },
   )
     .then((likeCard) => {
+      console.log(likeCard);
       if (likeCard) {
         res.send(likeCard);
       } else {
