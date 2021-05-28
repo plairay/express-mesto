@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 const BadRequestError = require('../errors/400-bad-request-error');
 const UnauthorizedError = require('../errors/401-unauthorized-error');
 const NotFoundError = require('../errors/404-not-found-error');
@@ -8,7 +9,10 @@ const User = require('../models/user');
 
 const SALT_ROUNDS = 10;
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
-const JWT_SECRET_KEY = 'extremly_secret_key';
+
+dotenv.config();
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 exports.getUsers = (req, res, next) => {
   User.find({})
@@ -151,16 +155,14 @@ exports.login = (req, res, next) => {
             throw new UnauthorizedError('Неправильные почта или пароль');
           }
 
-          const token = jwt.sign({ _id: userIsExist._id }, JWT_SECRET_KEY, {
-            expiresIn: '7d',
-          });
+          const token = jwt.sign({ _id: userIsExist._id }, `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`, { expiresIn: '7d' });
           res
             .cookie('userToken', token, {
               maxAge: '3600000',
               httpOnly: true,
               sameSite: true,
             })
-            .send({ _id: userIsExist._id });
+            .send({ _id: userIsExist._id, token });
         })
         .catch(next);
     })

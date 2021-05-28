@@ -6,6 +6,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const dotenv = require('dotenv');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { usersRoutes } = require('./routes/users');
@@ -14,6 +15,7 @@ const { login, createUser } = require('./controllers/users');
 const { Auth } = require('./middlewares/auth');
 const NotFoundError = require('./errors/404-not-found-error');
 
+dotenv.config();
 app.use(cors({
   origin: true,
   exposedHeaders: '*',

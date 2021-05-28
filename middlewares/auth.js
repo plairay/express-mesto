@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 const UnauthorizedError = require('../errors/401-unauthorized-error');
 const ForbiddenError = require('../errors/403-forbidden-error');
 
-const JWT_SECRET_KEY = 'extremly_secret_key';
+dotenv.config();
+const { JWT_SECRET, NODE_ENV } = process.env;
 
 exports.Auth = (req, res, next) => {
   const token = req.cookies.userToken;
@@ -15,7 +17,7 @@ exports.Auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, JWT_SECRET_KEY);
+    payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`);
   } catch (err) {
     throw new ForbiddenError('Не достаточно прав');
   }
